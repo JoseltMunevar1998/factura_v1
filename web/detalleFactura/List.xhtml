@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDetalleFacturaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DetalleFacturaListForm">
+                <p:panel header="#{bundle.ListDetalleFacturaTitle}">
+                    <p:dataTable id="datalist" value="#{detalleFacturaController.items}" var="item"
+                                 selectionMode="single" selection="#{detalleFacturaController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.detalleFacturaPK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_porcentajeDescuento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.porcentajeDescuento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_precioBruto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precioBruto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_precioNeto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precioNeto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_iva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_precioTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precioTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_facturaVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.facturaVenta}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleFacturaTitle_producto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.producto}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{detalleFacturaController.prepareCreate}" update=":DetalleFacturaCreateForm" oncomplete="PF('DetalleFacturaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleFacturaViewForm" oncomplete="PF('DetalleFacturaViewDialog').show()" disabled="#{empty detalleFacturaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetalleFacturaEditForm" oncomplete="PF('DetalleFacturaEditDialog').show()" disabled="#{empty detalleFacturaController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detalleFacturaController.destroy}" update=":growl,datalist" disabled="#{empty detalleFacturaController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

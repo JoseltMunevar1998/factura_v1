@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </head>
+    
+    <ui:composition>
+        <div class="container">
+        <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" height="100%" width="32%" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
+            <h:form id="ClienteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_idCliente}" for="idCliente" />
+                        <p:inputText type="number"  id="idCliente" value="#{clienteController.selected.idCliente}"  required="true" requiredMessage="IdCliente requerido" onkeypress="return numero(event)"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" required="true" requiredMessage="Nombre requerido" onkeypress="return letra(event)" maxlength="20"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_apellido}" for="apellido" />
+                        <p:inputText onchange="minimo()" id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.CreateClienteTitle_apellido}" required="true" requiredMessage="Apellido requerido" onkeypress="return letra(event)" maxlength="20"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
+                        <p:inputText onchange="minimo()" onkeypress="return numero(event)" id="telefono" value="#{clienteController.selected.telefono}" required="true" requiredMessage="Telefono es requerido" maxlength="12" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}"  required="true" requiredMessage="Direccion requerido"/>
+                    </p:panelGrid>
+                    <p:commandButton styleClass="btn-success" actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <!--<p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>-->
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+</div>
+    </ui:composition>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaVentaCreateDlg" widgetVar="FacturaVentaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFacturaVentaTitle}">
+            <h:form id="FacturaVentaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaVentaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_numFactura}" for="numFactura" />
+                        <p:inputText id="numFactura" value="#{facturaVentaController.selected.numFactura}" title="#{bundle.CreateFacturaVentaTitle_numFactura}" required="true" requiredMessage="#{bundle.CreateFacturaVentaRequiredMessage_numFactura}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_porcentajeDescuento}" for="porcentajeDescuento" />
+                        <p:inputText id="porcentajeDescuento" value="#{facturaVentaController.selected.porcentajeDescuento}" title="#{bundle.CreateFacturaVentaTitle_porcentajeDescuento}" required="true" requiredMessage="#{bundle.CreateFacturaVentaRequiredMessage_porcentajeDescuento}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_precioBruto}" for="precioBruto" />
+                        <p:inputText id="precioBruto" value="#{facturaVentaController.selected.precioBruto}" title="#{bundle.CreateFacturaVentaTitle_precioBruto}" required="true" requiredMessage="#{bundle.CreateFacturaVentaRequiredMessage_precioBruto}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_precioNeto}" for="precioNeto" />
+                        <p:inputText id="precioNeto" value="#{facturaVentaController.selected.precioNeto}" title="#{bundle.CreateFacturaVentaTitle_precioNeto}" required="true" requiredMessage="#{bundle.CreateFacturaVentaRequiredMessage_precioNeto}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{facturaVentaController.selected.iva}" title="#{bundle.CreateFacturaVentaTitle_iva}" required="true" requiredMessage="#{bundle.CreateFacturaVentaRequiredMessage_iva}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_precioTotal}" for="precioTotal" />
+                        <p:inputText id="precioTotal" value="#{facturaVentaController.selected.precioTotal}" title="#{bundle.CreateFacturaVentaTitle_precioTotal}" required="true" requiredMessage="#{bundle.CreateFacturaVentaRequiredMessage_precioTotal}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaVentaLabel_cliente}" for="cliente" />
+                        <p:selectOneMenu id="cliente" value="#{facturaVentaController.selected.cliente}" >
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteItem"
+                                           itemValue="#{clienteItem}" itemLabel="#{clienteItem.nombre} #{clienteItem.apellido}" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaVentaController.create}" value="#{bundle.Save}" update="display,:FacturaVentaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturaVentaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaVentaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

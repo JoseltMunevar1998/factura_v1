@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <style>
+            .ui-button{
+                font-family: Gungsuh; 
+                color:#000000;
+                border-radius: 7px;
+                border:1px solid #0E1826;
+                background-color: #dbf6ff;
+                min-width: 20%;
+            }
+            .ui-button-text{
+                min-width: 100%;
+                height: 100%;
+               font: 1.0em Open Sans, Impact;
+            }
+            body {
+                background: url(http://todofondos.com/bin/fondos/06/64/02d.jpg);
+                background-repeat: no-repeat;  
+                background-position: center;
+                background-size: cover ;
+                margin: auto;
+                font: 6.6em/1 Open Sans, Impact;
+                text-transform: uppercase;
+                margin-top: 60px;
+            }
+            @media screen and (max-width: 400px) and (min-width: 400px) {
+               .ui-button *{
+                    width: 100px;
+                    height: 100%;
+                }
+                
+            }
+            .anim-shape {
+                -webkit-transform-origin: 0x 150px;
+                -ms-transform-origin: 0x 150px;
+                transform-origin: 0x 150px;
+                -webkit-transform: scale(0    , 1) translate(0, 0);
+                -ms-transform: scale(2, 1) translate(0, 0);
+                transform: scale(4, 1) translate(0, 0);
+                -webkit-animation: moving-panel 1s infinite alternate;
+                animation: moving-panel 3s infinite alternate;
+
+            }
+            .colortext .anim-shape:nth-child(5) {
+                fill: #FF00FF;
+            }
+            .shadow {
+                -webkit-transform: translate(10px, 10px);
+                -ms-transform: translate(10px, 10px);
+                transform: translate(10px, 10px);
+            }
+            .anim-shape--shadow {
+                fill: #12d3de;
+                fill-opacity: .3;
+            }
+            /* Otras cosas */
+            svg {
+                position: absolute;
+                width: 86%;
+                height: 55%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <center>
+            <div style=" float: left;">
+                <svg viewBox="0, 40, 900, 300">
+                    <!-- Símbolo con texto -->
+                    <symbol id="s-text">
+                        <text text-anchor="middle" x="30%" y="70%" dy=".25em" class="textline"></text>    
+                    </symbol>
+                    <!--Clippath con el texto -->
+                    <clippath id="cp-text">
+                        <text style="font-family: fantasy" text-anchor="middle" x="58%" y="26%" dy=".25em" class="text--line">
+                            FACTURA DE VENTA
+                        </text>
+                    </clippath>
+                    <!-- Grupo de sombra -->
+                    <g clip-path="url(#cp-text)" class="shadow">
+                        <rect width="100%" height="100%" class="anim-shape anim-shape--shadow"></rect>
+                    </g>
+                    <!--Grupo con la ruta del clip para el textot-->
+                    <g clip-path="url(#cp-text)" class="colortext">
+                        <!-- Animated shapes inside text -->
+                        <rect width="100%" height="100%" class="anim-shape"></rect>
+                        <rect width="80%" height="100%" class="anim-shape"></rect>
+                        <rect width="65%" height="100%" class="anim-shape"></rect>
+                        <rect width="50%" height="100" class="anim-shape"></rect>
+                        <rect width="35%" height="100%" class="anim-shape"></rect>
+                    </g>
+                    <!-- Copia transparente de texto para guardar Texto con dibujos seleccionable -->
+                    <use href="#s-text" class="text--transparent"></use>
+                </svg>
+            </div>
+            <br></br>
+            <br></br>
+            <p:toolbarGroup>
+                <p:button outcome="/cliente/List" value="Articulos De Cliente"/><br></br>
+                <p:button outcome="/facturaVenta/List" value="Articulos De Factura"/><br></br>
+                <p:button outcome="/producto/List" value="Articulos De Producto"/><br></br>
+                <p:button outcome="/tipoProducto/List" value="Tipos De Producto"/><br></br>
+                <p:button outcome="/detalleFactura/List" value="Detalles de factura"/>
+            </p:toolbarGroup>
+        </center>       
+    </h:body>
+</html>

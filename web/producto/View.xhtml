@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductoViewDlg" widgetVar="ProductoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProductoTitle}">
+            <h:form id="ProductoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProductoLabel_idProducto}"/>
+                        <h:outputText value="#{productoController.selected.idProducto}" title="#{bundle.ViewProductoTitle_idProducto}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_descripcionProducto}"/>
+                        <h:outputText value="#{productoController.selected.descripcionProducto}" title="#{bundle.ViewProductoTitle_descripcionProducto}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_precioUnitario}"/>
+                        <h:outputText value="#{productoController.selected.precioUnitario}" title="#{bundle.ViewProductoTitle_precioUnitario}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_referencia}"/>
+                        <h:outputText value="#{productoController.selected.referencia}" title="#{bundle.ViewProductoTitle_referencia}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_tipoProducto}"/>
+                        <h:outputText value="#{productoController.selected.tipoProducto.descProducto}" title="#{bundle.ViewProductoTitle_tipoProducto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProductoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

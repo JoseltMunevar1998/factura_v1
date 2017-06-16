@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+     >
+    
+    <h:head>   
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <h:outputStylesheet library="css" name="bootstrap.css" />
+    <h:outputStylesheet library="css" name="bootstrap.theme.min.css" />
+    <h:outputStylesheet library="css" name="bootstrap.theme.css" />
+    </h:head>
+    <h:body>
+    <ui:composition template="/template.xhtml" >        
+        <ui:define name="body">
+            <h:form  id="ClienteListForm" style="width:100%">
+                <p:panel header="CLIENTES" >
+                    <p:dataTable id="datalist"  value="#{clienteController.items}" var="item" selectionMode="single" selection="#{clienteController.selected}"
+                         editable="true" rowKey="#{item.idCliente}">
+                        <p:ajax event="rowSelect" update="createButton viewButton editButton deleteButton consultaButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton consultaButton"/>
+                        <p:ajax event="rowEdit" listener="#{clienteController.update()}" update="datalist"/>
+                        <p:growl autoUpdate="true"/>
+                        <p:column style="width: 30px">
+                            <p:rowEditor />
+                        </p:column>
+                        <p:column headerText="ID Cliente" filterBy="#{item.idCliente}" >
+                            <h:outputText value="#{item.idCliente}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Nombre">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                            <h:outputText value="#{item.nombre}"/>
+                            </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{item.nombre}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column >
+                        <p:column headerText="#{bundle.ListClienteTitle_apellido}">
+                            <h:outputText value="#{item.apellido}"/>
+                        </p:column>
+                        <p:column headerText="#{bundle.ListClienteTitle_telefono}">
+                            <h:outputText value="#{item.telefono}"/>
+                        </p:column>
+                        <p:column headerText="#{bundle.ListClienteTitle_direccion}">
+                            <h:outputText value="#{item.direccion}"/>
+                        </p:column>
+                        <f:facet  name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-disk"   value="Crear" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="Ver" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton  id="deleteButton" icon="ui-icon-trash"  value="Eliminar" actionListener="#{clienteController.destroy}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="consultaButton" icon="ui-icon-search" value="#{bundle.IdCliente_tittle}"  actionListener="#{clienteController.prepareCreate}" update=":ConsultaForm" oncomplete="PF('ConsultaDialog').show()"/> 
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="../consulta/consulta.xhtml"/>
+        </ui:define>
+    </ui:composition> 
+        </h:body>
+</html>

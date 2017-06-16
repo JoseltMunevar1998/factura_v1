@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+
+    </h:head>
+
+    <ui:composition>
+
+        <p:dialog id="ConsultaDlg" widgetVar="ConsultaDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.IdCliente_tittle}" >
+            <h:form id="ConsultaForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+
+
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_idCliente}" title="#{bundle.ViewClienteTitle_idCliente}" for="idCliente" />
+                        <p:inputText type="number" id="idCliente" value="#{ConsultaClienteController.idCliente}" required="true" label="Campo requerido"  >
+                                
+                            <p:message for="idCliente"  />
+                            <p:growl autoUpdate="true" severity="info, error"/>
+                        </p:inputText>
+                        <p:commandButton  actionListener="#{ConsultaClienteController.action()}"  icon="ui-icon-search" value="seach" update="display,ConsultaForm" />
+                        <p:commandButton value="#{bundle.Cancel}" onclick="ConsultaDialog.hide()"/>
+                        
+                                
+                       
+                             
+                        <h:outputText value="#{bundle.ViewClienteLabel_idCliente}"/>
+                        <h:outputText value="#{ConsultaClienteController.item.idCliente}" title="#{bundle.ViewClienteTitle_idCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_nombre}"/>
+                        <h:outputText value="#{ConsultaClienteController.item.nombre}" title="#{bundle.ViewClienteTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_apellido}"/>
+                        <h:outputText value="#{ConsultaClienteController.item.apellido}" title="#{bundle.ViewClienteTitle_apellido}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_telefono}"/>
+                        <h:outputText value="#{ConsultaClienteController.item.telefono}" title="#{bundle.ViewClienteTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_direccion}"/>
+                        <h:outputText value="#{ConsultaClienteController.item.direccion}" title="#{bundle.ViewClienteTitle_direccion}"/>
+                    </p:panelGrid>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+
+
+

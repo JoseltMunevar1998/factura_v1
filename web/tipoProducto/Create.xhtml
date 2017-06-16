@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoProductoCreateDlg" widgetVar="TipoProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoProductoTitle}">
+            <h:form id="TipoProductoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoProductoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTipoProductoLabel_idTipoProducto}" for="idTipoProducto" />
+                        <p:inputText id="idTipoProducto" value="#{tipoProductoController.selected.idTipoProducto}" title="#{bundle.CreateTipoProductoTitle_idTipoProducto}" required="true" requiredMessage="#{bundle.CreateTipoProductoRequiredMessage_idTipoProducto}"/>
+                        <p:outputLabel value="#{bundle.CreateTipoProductoLabel_descProducto}" for="descProducto" />
+                        <p:inputText id="descProducto" value="#{tipoProductoController.selected.descProducto}" title="#{bundle.CreateTipoProductoTitle_descProducto}" required="true" requiredMessage="#{bundle.CreateTipoProductoRequiredMessage_descProducto}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoProductoController.create}" value="#{bundle.Save}" update="display,:TipoProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoProductoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoProductoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

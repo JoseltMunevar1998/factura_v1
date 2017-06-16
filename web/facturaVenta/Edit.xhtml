@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaVentaEditDlg" widgetVar="FacturaVentaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFacturaVentaTitle}">
+            <h:form id="FacturaVentaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaVentaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_numFactura}" for="numFactura" />
+                        <p:inputText id="numFactura" value="#{facturaVentaController.selected.numFactura}" title="#{bundle.EditFacturaVentaTitle_numFactura}" required="true" requiredMessage="#{bundle.EditFacturaVentaRequiredMessage_numFactura}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_porcentajeDescuento}" for="porcentajeDescuento" />
+                        <p:inputText id="porcentajeDescuento" value="#{facturaVentaController.selected.porcentajeDescuento}" title="#{bundle.EditFacturaVentaTitle_porcentajeDescuento}" required="true" requiredMessage="#{bundle.EditFacturaVentaRequiredMessage_porcentajeDescuento}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_precioBruto}" for="precioBruto" />
+                        <p:inputText id="precioBruto" value="#{facturaVentaController.selected.precioBruto}" title="#{bundle.EditFacturaVentaTitle_precioBruto}" required="true" requiredMessage="#{bundle.EditFacturaVentaRequiredMessage_precioBruto}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_precioNeto}" for="precioNeto" />
+                        <p:inputText id="precioNeto" value="#{facturaVentaController.selected.precioNeto}" title="#{bundle.EditFacturaVentaTitle_precioNeto}" required="true" requiredMessage="#{bundle.EditFacturaVentaRequiredMessage_precioNeto}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{facturaVentaController.selected.iva}" title="#{bundle.EditFacturaVentaTitle_iva}" required="true" requiredMessage="#{bundle.EditFacturaVentaRequiredMessage_iva}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_precioTotal}" for="precioTotal" />
+                        <p:inputText id="precioTotal" value="#{facturaVentaController.selected.precioTotal}" title="#{bundle.EditFacturaVentaTitle_precioTotal}" required="true" requiredMessage="#{bundle.EditFacturaVentaRequiredMessage_precioTotal}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaVentaLabel_cliente}" for="cliente" />
+                        <p:selectOneMenu id="cliente" value="#{facturaVentaController.selected.cliente}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteItem"
+                                           itemValue="#{clienteItem}" itemLabel="#{clienteItem.nombre} #{clienteItem.apellido}" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaVentaController.update}" value="#{bundle.Save}" update="display,:FacturaVentaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FacturaVentaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaVentaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
